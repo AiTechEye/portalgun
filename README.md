@@ -1,16 +1,16 @@
 # portalgun
-for minetest 0.4.16 or newer
-License: CC0
-Version: 6.3
 
+for minetest 0.4.16 or newer<br>
+License: CC0<br>
+Version: 6.3<br>
 
-=====The portalgun=====
-"place" to change portal mode (or "left+rightclick" to use the other)
-"shift+leftclick" to close both portals (or wait 40sec before them removes it self)
-"leftclick" on an object to carry it, click again to release
-you can craft it to a decuration block, dig to get it back
-
-=====Blocks and stuff=====
+=====The portalgun=====<br>
+"place" to change portal mode (or "left+rightclick" to use the other)<br>
+"shift+leftclick" to close both portals (or wait 40sec before them removes it self)<br>
+"leftclick" on an object to carry it, click again to release<br>
+you can craft it to a decuration block, dig to get it back<br>
+<br>
+=====Blocks and stuff=====<br>
 Antiportal block & glass: cant open potals on them
 Hard glass: 		harder then stone
 Checkpoint: 		touch it until you hear a beep sound, then you will move to it after respawn
