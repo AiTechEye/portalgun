@@ -1,4 +1,15 @@
 minetest.register_craft({
+	output = "portalgun:gun1_placed",
+	recipe = {{"portalgun:gun1"}}})
+minetest.register_craft({
+	output = "portalgun:gun2_placed",
+	recipe = {{"portalgun:gun2"}}})
+minetest.register_craft({
+	output = "portalgun:gun_placed",
+	recipe = {{"portalgun:gun"}}})
+
+
+minetest.register_craft({
 	output = "portalgun:turretgun",
 	recipe = {
 		{"", "portalgun:secam_off", ""},
