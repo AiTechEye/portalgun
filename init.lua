@@ -340,12 +340,22 @@ on_step=portalgun_on_step,
 })
 
 
-minetest.register_tool("portalgun:gun1", {
+minetest.register_node("portalgun:gun1", {
 	description = "Portalgun (blue)",
-	inventory_image = "portalgun_gun_blue.png",
 	range = 5,
-	wield_image = "portalgun_gun_blue.png",
+	tiles={"portalgun_gun1.png"},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3, -0.5, -0.3, 0.3, -0.1,0.3},
+		}
+	},
+	drawtype="mesh",
+	mesh="portalgun_gun_wearing.obj",
 	groups = {not_in_creative_inventory=1},
+	sunlight_propagates = true,
+	paramtype="light",
+	paramtype2="facedir",
 on_place=function(itemstack, user, pointed_thing)
 	portalgun_mode(itemstack, user, pointed_thing)
 	return itemstack
@@ -355,12 +365,22 @@ on_use = function(itemstack, user, pointed_thing)
 	return itemstack
 end
 })
-minetest.register_tool("portalgun:gun2", {
+minetest.register_node("portalgun:gun2", {
 	description = "Portalgun (orange)",
-	inventory_image = "portalgun_gun_orange.png",
 	range = 5,
-	wield_image = "portalgun_gun_orange.png",
+	tiles={"portalgun_gun2.png"},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3, -0.5, -0.3, 0.3, -0.1,0.3},
+		}
+	},
+	drawtype="mesh",
+	mesh="portalgun_gun_wearing.obj",
 	groups = {not_in_creative_inventory=1},
+	sunlight_propagates = true,
+	paramtype="light",
+	paramtype2="facedir",
 on_place=function(itemstack, user, pointed_thing)
 	portalgun_mode(itemstack, user, pointed_thing)
 	return itemstack
@@ -371,12 +391,21 @@ on_use = function(itemstack, user, pointed_thing)
 end
 })
 
-minetest.register_tool("portalgun:gun", {
+minetest.register_node("portalgun:gun", {
 	description = "Portalgun",
-	inventory_image = "portalgun_gun.png",
 	range = 5,
-	wield_image = "portalgun_gun.png",
-	groups = {not_in_creative_inventory=0},
+	tiles={"portalgun_gun0.png"},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3, -0.5, -0.3, 0.3, -0.1,0.3},
+		}
+	},
+	drawtype="mesh",
+	mesh="portalgun_gun_wearing.obj",
+	sunlight_propagates = true,
+	paramtype="light",
+	paramtype2="facedir",
 on_place=function(itemstack, user, pointed_thing)
 	portalgun_mode(itemstack, user, pointed_thing)
 	return itemstack
@@ -386,6 +415,78 @@ on_use = function(itemstack, user, pointed_thing)
 	return itemstack
 end
 })
+
+minetest.register_node("portalgun:gun1_placed", {
+	description = "Portalgun (blue)",
+	range = 5,
+	tiles={"portalgun_gun1.png"},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3, -0.5, -0.3, 0.3, -0.1,0.3},
+		}
+	},
+	drawtype="mesh",
+	mesh="portalgun_gun.obj",
+	sunlight_propagates = true,
+	paramtype="light",
+	paramtype2="facedir",
+	visual_scale=0.4,
+	groups = {not_in_creative_inventory=1,dig_immediate = 3},
+on_use = function(itemstack, user, pointed_thing)
+	portalgun_onuse(itemstack, user, pointed_thing)
+	return itemstack
+end
+})
+minetest.register_node("portalgun:gun2_placed", {
+	description = "Portalgun (orange)",
+	range = 5,
+	tiles={"portalgun_gun2.png"},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3, -0.5, -0.3, 0.3, -0.1,0.3},
+		}
+	},
+	drawtype="mesh",
+	mesh="portalgun_gun.obj",
+	sunlight_propagates = true,
+	paramtype="light",
+	paramtype2="facedir",
+	visual_scale=0.4,
+	groups = {not_in_creative_inventory=1,dig_immediate = 3},
+on_use = function(itemstack, user, pointed_thing)
+	portalgun_onuse(itemstack, user, pointed_thing)
+	return itemstack
+end
+})
+
+minetest.register_node("portalgun:gun_placed", {
+	description = "Portalgun",
+	range = 5,
+	tiles={"portalgun_gun0.png"},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3, -0.5, -0.3, 0.3, -0.1,0.3},
+		}
+	},
+	drawtype="mesh",
+	mesh="portalgun_gun.obj",
+	sunlight_propagates = true,
+	paramtype="light",
+	paramtype2="facedir",
+	visual_scale=0.4,
+	groups = {not_in_creative_inventory=1,dig_immediate = 3},
+on_use = function(itemstack, user, pointed_thing)
+	portalgun_onuse(itemstack, user, pointed_thing)
+	return itemstack
+end
+})
+
+
+
+
 
 
 function portalgun_mode(itemstack, user, pointed_thing)	-- change modes
