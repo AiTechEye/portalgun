@@ -4,7 +4,7 @@ https://forum.minetest.net/viewtopic.php?f=11&t=12772
 
 for minetest 0.4.16 or newer<br>
 License: CC0<br>
-Version: 6.3<br>
+Version: 6.35<br>
 
 =====The portalgun=====<br>
 "place" to change portal mode (or "left+rightclick" to use the other)<br>
