@@ -20,7 +20,6 @@ portalgun_max_rage=100
 portalgun_max_use_per_secund_time=4	--destroys the portal if excessive used 
 portalgun_max_use_per_secund=25		--4 & 25 is default = teleported (teleported 25 times in 4 sec)
 
-
 function portalgun_param2(pos,param2,r)
 	local pos2={x=pos.x,y=pos.y,z=pos.z}
 	if r then
@@ -115,8 +114,6 @@ portalgun_on_step=function(self, dtime)
 	end
 
 
-
-
 	if self.portal_max_use>0 then				-- makes teleported stuff wont move back at same time (bug fix)
 		self.portal_max_use_time=self.portal_max_use_time+dtime
 		if self.portal_max_use>=portalgun_max_use_per_secund then
@@ -132,7 +129,6 @@ portalgun_on_step=function(self, dtime)
 	local pos2=0
 	local d1=0
 	local d2=0
-
 	if self.project==1 then
 		pos1=portalgun_portal[name].portal1_pos
 		pos2=portalgun_portal[name].portal2_pos
@@ -145,10 +141,14 @@ portalgun_on_step=function(self, dtime)
 		d2=portalgun_portal[name].portal1_dir
 	end
 
+-- portalgun_front_of_field should fix teleport through walls, but is not working in all directions
+-- waiting with this issue
+
+
 
 	if pos2~=0 and pos1~=0 then
 		for ii, ob in pairs(minetest.get_objects_inside_radius(pos1, self.area)) do
-			if pos2~=0 then
+			if pos2~=0 then 		--and portalgun_front_of_field(self.object,ob) 
 				if (ob:is_player() ) or (ob:get_luaentity() and ob:get_luaentity().portalgun~=1 and ob:get_luaentity().name:find(":text",4)==nil) then
 
 				
@@ -227,7 +227,7 @@ portalgun_on_step=function(self, dtime)
 				local obpos={x=p.x+x,y=p.y+y,z=p.z+z}
 				portalgun_portal[name].timer=0.2
 				self.portal_max_use=self.portal_max_use+1
-				ob:move_to(obpos,false)
+				ob:set_pos(obpos,false)
 				portalgun_portal[name].lifelime=portalgun_lifelime
 				minetest.sound_play("portalgun_teleport", {pos=portalgun_portal[name].portal1_pos,max_hear_distance = 10, gain = 30})
 				minetest.sound_play("portalgun_teleport", {pos=portalgun_portal[name].portal2_pos,max_hear_distance = 10, gain = 30})
@@ -614,13 +614,18 @@ end
 function portalgun_setportal(pos,name,dir,i,mode,portal_dir)
 	local lpos={x=pos.x+(dir.x*(i-1)), y=pos.y+(dir.y*(i-1)), z=pos.z+(dir.z*(i-1))}	-- last pos
 	local cpos={x=pos.x+(dir.x*i), y=pos.y+(dir.y*i), z=pos.z+(dir.z*i)}		-- corrent poss
-
-	if portal_dir=="y+" then cpos.y=(math.floor(cpos.y+ 0.5))+0.524
-	elseif portal_dir=="y-" then cpos.y=(math.floor(cpos.y+ 0.5))-0.524
-	elseif portal_dir=="z+" then cpos.z=(math.floor(cpos.z+ 0.5))+0.524
-	elseif portal_dir=="z-" then cpos.z=(math.floor(cpos.z+ 0.5))-0.524
-	elseif portal_dir=="x+" then cpos.x=(math.floor(cpos.x+ 0.5))+0.524
-	elseif portal_dir=="x-" then cpos.x=(math.floor(cpos.x+ 0.5))-0.524
+	if portal_dir=="y+" then
+		cpos.y=(math.floor(cpos.y+ 0.5))+0.524
+	elseif portal_dir=="y-" then
+		cpos.y=(math.floor(cpos.y+ 0.5))-0.524
+	elseif portal_dir=="z+" then
+		cpos.z=(math.floor(cpos.z+ 0.5))+0.524
+	elseif portal_dir=="z-" then
+		cpos.z=(math.floor(cpos.z+ 0.5))-0.524
+	elseif portal_dir=="x+" then
+		cpos.x=(math.floor(cpos.x+ 0.5))+0.524
+	elseif portal_dir=="x-" then
+		cpos.x=(math.floor(cpos.x+ 0.5))-0.524
 	end
 
 	if portal_dir=="x+" or portal_dir=="x-" then -- auto correct (place in center)
@@ -664,6 +669,11 @@ function portalgun_setportal(pos,name,dir,i,mode,portal_dir)
 		portalgun_portal[name].z=portalgun_portal[name].z*-1
 	end
 
+
+
+
+
+
 	if mode==1 then
 		portal_delete(name,1)
 		portalgun_portal[name].portal1_use=portalgun_portal[name].portal1_use+1
@@ -681,4 +691,20 @@ function portalgun_setportal(pos,name,dir,i,mode,portal_dir)
 		portalgun_portal[name].portal2_active=true
 		minetest.sound_play("portalgun_portalorange", {pos=cpos,max_hear_distance = 20, gain = 1})
 	end
+end
+
+portalgun_front_of_field=function(ob,ob2)
+	local pos2=ob2:get_pos()
+	return vector.distance(ob:get_pos(),pos2)>vector.distance(portalgun_pointat(ob),pos2)
+end
+
+portalgun_pointat=function(ob)
+	local pos=ob:get_pos()
+	local yaw=ob:get_yaw()
+	if yaw ~= yaw or type(yaw)~="number" then
+		yaw=0
+	end
+	local z =math.sin(yaw) * -0.1
+	local x =math.cos(yaw) * 0.1
+	return {x=pos.x+x,y=pos.y,z=pos.z+z}
 end
