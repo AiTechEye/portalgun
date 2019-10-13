@@ -2,7 +2,7 @@
 
 https://forum.minetest.net/viewtopic.php?f=11&t=12772
 
-for minetest 0.4.16 or newer<br>
+for minetest 0.5.1 or newer<br>
 Licenses: code: LGPL-2.1, media: CC BY-SA-4.0<br>
 Version: 6.36<br>
 
