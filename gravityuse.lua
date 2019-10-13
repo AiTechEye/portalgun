@@ -1,17 +1,17 @@
--- Code by UjEdwin
-
 portalgun_power={}
 portalgun_power_tmp_power=0
 
 function portalgun_gravity(itemstack, user, pointed_thing)
 	local ob=pointed_thing.ref
-	if ob:get_luaentity() and ob:get_luaentity().portalgun_power then
-	ob:get_luaentity().target:set_detach()
-	if ob:get_luaentity().target:get_luaentity() and (ob:get_luaentity().target:get_luaentity().itemstring or ob:get_luaentity().target:get_luaentity().wsc) then
-		ob:get_luaentity().target:set_velocity({x=0, y=-1, z=0})
-		ob:get_luaentity().target:set_acceleration({x=0, y=-8, z=0})
-	end
-	return  itemstack
+	local at = ob:get_attach()
+	if at and at:get_luaentity() and at:get_luaentity().portalgun_power then
+		ob:set_detach()
+		local target = at:get_luaentity().target
+		if target and target:get_luaentity() and (target:get_luaentity().itemstring or target:get_luaentity().wsc) then
+			target:set_velocity({x=0, y=-1, z=0})
+			target:set_acceleration({x=0, y=-8, z=0})
+		end
+		return  itemstack
 	end
 	if not ob:get_attach() and (ob:is_player() or (ob:get_luaentity() and ob:get_luaentity().powerball~=1)) then
 		portalgun_power.user=user
@@ -21,6 +21,13 @@ function portalgun_gravity(itemstack, user, pointed_thing)
 		ob:set_attach(m, "", {x=0,y=0,z=0}, {x=0,y=0,z=0})
 		return  itemstack
 	end
+
+
+
+
+
+
+
 	return itemstack
 end
 
