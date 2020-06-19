@@ -1,4 +1,6 @@
 disable_portal_stuff=false
+proportal_group_only = true
+
 
 portalgun={new=0,checkpoints={}}
 dofile(minetest.get_modpath("portalgun") .. "/gravityuse.lua") -- the gravity part of portalgun
@@ -575,10 +577,11 @@ function portalgun_onuse(itemstack, user, pointed_thing) -- using the gun
 		local nname=minetest.get_node({x=pos.x+(dir.x*i), y=pos.y+(dir.y*i), z=pos.z+(dir.z*i)}).name
 		if minetest.registered_nodes[nname].walkable then
 			portalgun_portal[name].lifelime=portalgun_lifelime
-
-
 			
-			if minetest.get_node_group(nname, "antiportal")>0 then
+			if not proportal_group_only and minetest.get_node_group(nname, "antiportal") > 0 then
+				minetest.sound_play("portalgun_error", {pos=pos,max_hear_distance = 5, gain = 3})
+				return itemstack
+			elseif proportal_group_only and minetest.get_node_group(nname, "proportal") == 0 then
 				minetest.sound_play("portalgun_error", {pos=pos,max_hear_distance = 5, gain = 3})
 				return itemstack
 			end
