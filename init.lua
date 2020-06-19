@@ -1,5 +1,5 @@
 disable_portal_stuff=false
-proportal_group_only = true
+proportal_group_only = false
 
 
 portalgun={new=0,checkpoints={}}
