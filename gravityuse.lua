@@ -62,7 +62,7 @@ on_punch=function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		if self.target and self.target:get_attach() then
 			self.target:set_detach()
 			self.target:set_hp(0)
-			self.target:punch(self.object, {full_punch_interval=1.0,damage_groups={fleshy=4}}, "default:bronze_pick", nil)
+			self.target:punch(self.object, 1, {full_punch_interval=1.0,damage_groups={fleshy=4}})
 		end
 
 end,
@@ -72,7 +72,7 @@ on_step= function(self, dtime)
 		self.timer=0
 		if self.target==nil or (not self.target:get_attach()) then
 			self.object:set_hp(0)
-			self.object:punch(self.object, {full_punch_interval=1.0,damage_groups={fleshy=4}}, "default:bronze_pick", nil)
+			self.object:punch(self.object, 1, {full_punch_interval=1.0,damage_groups={fleshy=4}})
 			if self.sound then minetest.sound_stop(self.sound) end
 		end
 		if self.player then
@@ -152,7 +152,7 @@ on_step= function(self, dtime)
 
 		if self.target==nil or (not self.target:get_attach()) then
 			self.object:set_hp(0)
-			self.object:punch(self.object, {full_punch_interval=1.0,damage_groups={fleshy=4}}, "default:bronze_pick", nil)
+			self.object:punch(self.object, 1, {full_punch_interval=1.0,damage_groups={fleshy=4}})
 			return self
 		end
 		return self

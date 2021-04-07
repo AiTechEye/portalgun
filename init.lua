@@ -54,11 +54,11 @@ function portal_delete(name,n)	-- using set_hp & :punch instand of :remove ... n
 	if (n==1 or n==0) and portalgun_portal[name].portal1~=nil then
 		if n==0 then 
 			local pos=portalgun_portal[name].portal1:get_pos()
-			if pos~=nil then minetest.sound_play("portalgun_closeportals", {pos=pos,max_hear_distance = 20, gain = 1}) end
+			if pos ~= nil then minetest.sound_play("portalgun_closeportals", {pos=pos,max_hear_distance = 20, gain = 1}) end
 		end
 		portalgun_portal[name].portal1_active=false
 		portalgun_portal[name].portal1:set_hp(0)
-		portalgun_portal[name].portal1:punch(portalgun_portal[name].portal1, {full_punch_interval=1.0,damage_groups={fleshy=9000}}, "default:bronze_pick", nil)
+		portalgun_portal[name].portal1:punch(portalgun_portal[name].portal1, 1, {full_punch_interval=1.0,damage_groups={fleshy=9000}})
 	end
 	if (n==2 or n==0) and portalgun_portal[name].portal2~=nil then
 		if n==0 then 
@@ -67,7 +67,7 @@ function portal_delete(name,n)	-- using set_hp & :punch instand of :remove ... n
 		end
 		portalgun_portal[name].portal2_active=false
 		portalgun_portal[name].portal2:set_hp(0)
-		portalgun_portal[name].portal2:punch(portalgun_portal[name].portal2, {full_punch_interval=1.0,damage_groups={fleshy=9000}}, "default:bronze_pick", nil)
+		portalgun_portal[name].portal2:punch(portalgun_portal[name].portal2, 1, {full_punch_interval=1.0,damage_groups={fleshy=9000}})
 	end
 	if n==0 then portalgun_portal[name]=nil end
 end
