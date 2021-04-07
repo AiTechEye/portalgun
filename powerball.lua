@@ -87,7 +87,7 @@ on_step= function(self, dtime)
 		for i, ob in pairs(minetest.get_objects_inside_radius(pos, 2)) do
 			if ob:is_player() or (ob:get_luaentity() and ob:get_luaentity().portalgun~=1 and ob:get_luaentity().wsc==nil and ob:get_luaentity().powerball~=1) then
 				ob:set_hp(0)
-				ob:punch(ob, {full_punch_interval=1.0,damage_groups={fleshy=9000}}, "default:bronze_pick", nil)
+				ob:punch(ob, 1, {full_punch_interval=1.0,damage_groups={fleshy=9000}})
 
 			end
 		end
@@ -101,7 +101,7 @@ on_step= function(self, dtime)
 		if self.timer2>40 then
 			minetest.sound_stop(self.sound)
 			self.object:set_hp(0)
-			self.object:punch(self.object, {full_punch_interval=1.0,damage_groups={fleshy=9000}}, "default:bronze_pick", nil)
+			self.object:punch(self.object, 1, {full_punch_interval=1.0,damage_groups={fleshy=9000}})
 			return self
 		end
 		local v=self.object:get_velocity()

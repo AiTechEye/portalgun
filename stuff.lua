@@ -301,7 +301,7 @@ on_use = function(itemstack, user, pointed_thing)
 	for ii, ob in pairs(minetest.get_objects_inside_radius(pos, 7)) do
 		if ob:get_luaentity() then
 			ob:set_hp(0)
-			ob:punch(ob, {full_punch_interval=1.0,damage_groups={fleshy=9000}}, "default:bronze_pick", nil)
+			ob:punch(ob, 1, {full_punch_interval=1.0,damage_groups={fleshy=9000}})
 		end
 	end
 	return itemstack
@@ -508,7 +508,7 @@ on_step= function(self, dtime)
 	for i, ob in pairs(minetest.get_objects_inside_radius(pos, 1.5)) do
 		if  ob:is_player() or (ob:get_luaentity() and ob:get_luaentity().bullet~=1) then
 			ob:set_hp(ob:get_hp()-7)
-			ob:punch(self.object, 1,{full_punch_interval=1.0,damage_groups={fleshy=4}}, "default:bronze_pick", nil)
+			ob:punch(self.object, 1, {full_punch_interval=1.0,damage_groups={fleshy=4}})
 			self.object:remove()
 			return
 		end

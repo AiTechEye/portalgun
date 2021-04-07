@@ -86,7 +86,7 @@ on_step= function(self, dtime)
 				end
 			end
 			self.object:set_hp(0)
-			self.object:punch(self.object, 1, "default:bronze_pick", nil)
+			self.object:punch(self.object, 1)
 		end
 	end,
 	timer=0,
@@ -333,7 +333,7 @@ minetest.register_node("portalgun:objdestroyer_1", {
 			for i, ob in pairs(minetest.get_objects_inside_radius(pos, 5)) do
 				if ob:get_luaentity() then
 					ob:set_hp(0)
-					ob:punch(ob, {full_punch_interval=1.0,damage_groups={fleshy=9000}}, "default:bronze_pick", nil)
+					ob:punch(ob, 1, {full_punch_interval=1.0,damage_groups={fleshy=9000}})
 				end
 			end
 		end
